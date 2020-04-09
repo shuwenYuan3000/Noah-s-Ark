@@ -21,6 +21,8 @@ Regardless of your choices and outcomes, there are four more opponents waiting f
 
 Can you get enough coins and survive the trip? 
 
-## Programme Features
-
+## Programme Features/Functions
+- Data Structure to store the number of coins the player has obtained
+- Output the choices and outcome of each round  
+- 
 
