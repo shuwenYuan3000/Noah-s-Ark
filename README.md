@@ -45,7 +45,7 @@ each one coin can change into 1 million dollars in the real world.**
 *Then smiled the greedy.*
 
 
-Now the game starts:
+**_Now the game starts:_**
 
 Here comes your first opponent, standing in front of you. He is wearing a blue hat, looks kind and cooperative. From his eyes, you can see panic and fear, which reveals the same kind of desire for survival as yours. You need to play with him for 5 rounds. Should you cooperate so that both of you can safely get 10 coins? But will he do the same? Or should you cheat him to gain some more? 
 
