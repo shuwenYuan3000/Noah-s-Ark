@@ -31,9 +31,9 @@ The outcome concerning the option will be shown in the table following:
 | PLAYER 1  |PLAYER 2 |
 | ------------- | ------------- |
 | `Cooperate` +2 | `Cooperate` +2 |
-| `Copperate` -1 | `Cheat` +3  |
-| `Cheat` +3 | `Cooperate` -1 |
-| `Cheat` 0 | `Cheat` 0  |
+| `Copperate` 0 | `Cheat` +4  |
+| `Cheat` +4 | `Cooperate` 0 |
+| `Cheat` -1 | `Cheat` -1  |
 
 **Those who finally win more than 50 coins can get off the board.**
 
@@ -54,7 +54,9 @@ Regardless of your choices and outcomes, there are four more opponents and 20 ro
 Can you get enough coins and survive the trip? 
 
 ## Programme Features/Functions
-- Data Structure to store the number of coins the player has obtained
-- Output the choices and outcome of each round  
-- 
+- Data structure to store the number of coins the player has obtained 
+- Data structure to store the choices player has made if the opponent's choice is based on that 
+- Generation of random events as one opponent make choices randomly
+- Program codes in multiple files
+
 
