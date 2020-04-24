@@ -32,7 +32,7 @@ int main() {
 	print_background();
 	string start_game;
 	bool play=false;
-	while (!play){
+	while (!play) {
 		cout << "Type \"Yes\" if you would like to proceed:";
 	    cin >> start_game;
 	    if (start_game == "Yes") {
