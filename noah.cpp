@@ -37,6 +37,7 @@ int main() {
 	    cin >> start_game;
 	    if (start_game == "Yes") {
 	    	play = true;
+		gameplay();
 	    } 
 	    if (start_game == "No") {
 			cout << "If you don't play the game, you will be taken for human trials right away.  Think again!" << endl;
