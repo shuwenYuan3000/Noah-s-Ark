@@ -44,20 +44,22 @@ void trial() {
 	}
 	else {
 		tscore += 4;
-		rscore -= 1;
 	}
 	cout << "You now have " << tscore << " coins." << endl;
-	cout << "Your now have " << rscore << " coins." << endl;
+	cout << "Your rival now have " << rscore << " coins." << endl;
 	cout << "++++++++++++++++++++++++++++++++++++++++++++++" << endl;
 	cout << "You: ";
 	cin >> choice;
 	cout << "Your rival: No" << endl;
 	if (choice == "Yes") {
-		tscore -= 1;
 		rscore += 4;
 	}
+	else {
+		tscore -= 1;
+		rscore -= 1;
+	}
 	cout << "You now have " << tscore << " coins." << endl;
-	cout << "Your now have " << rscore << " coins." << endl;
+	cout << "Your rival now have " << rscore << " coins." << endl;
 	cout << "Now ended the trial. Good luck and wish you an enjoyable voyage! HAHAHAHAHAHA..." << endl;
 	cout << "----------------------------------------------" << endl;
 }
