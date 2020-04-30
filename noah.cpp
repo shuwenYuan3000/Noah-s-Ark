@@ -103,6 +103,71 @@ void girl(int& score, int record[5][2]) {
 	cout << "You now have " << score << " coins." << endl;
 }
 
+void black(int& score, int record[5][2]) {
+	cout << "----------------------------------------------" << endl;
+	cout << "There is a middle-aged man in tidy suit." << endl;
+	cout << "With sophisticated smile on his face." << endl;
+	cout << "Trust no Kings. Kings put Girls in Towers." << endl;
+	for (int i = 0; i < 5;++i) {
+		cout << "++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+		cout << "You now have " << score << " coins." << endl;
+		cout << "Type \"Yes\" if you would like to cooperate, else type \"No\"." << endl;
+		cout << "You: ";
+		string choice;
+		cin >> choice;
+		cout << "Your rival: No" << endl;
+		if (choice == "Yes" || choice == "yes") {
+			judge(score, 1, 0);
+			record[1][0] = 1;
+			record[1][1] = 0;
+		}
+		else if (choice == "No" || choice == "no") {
+			judge(score, 0, 0);
+			record[1][0] = 0;
+			record[1][1] = 0;
+			cout << "You now have " << score << " coins." << endl;
+		}
+	}
+	cout << "----------------------------------------------" << endl;
+	cout << "THE END OF ROUND 2" << endl;
+	cout << "You now have " << score << " coins." << endl;
+}
+
+void godfather(int& score, int record[5][2]) {
+	cout << "----------------------------------------------" << endl;
+	cout << "There sits a godfather." << endl;
+	cout << "Cigarattee at hand." << endl;
+	cout << "Never hate your enemies.It affects your judgement." << endl;
+	int coop = 1;
+	for (int i = 0; i < 5;++i) {
+		cout << "++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+		cout << "You now have " << score << " coins." << endl;
+		cout << "Type \"Yes\" if you would like to cooperate, else type \"No\"." << endl;
+		cout << "You: ";
+		string choice;
+		cin >> choice;
+		if (coop==1)
+			cout << "Your rival: Yes" << endl;
+		else
+			cout << "Your rival: No" << endl;
+		if (choice == "Yes" || choice == "yes") {
+			judge(score, 1, coop);
+			record[2][0] = 1;
+			record[2][1] = coop;
+		}
+		else if (choice == "No" || choice == "no") {
+			judge(score, 0, coop);
+			record[2][0] = 0;
+			record[2][1] = coop;
+			coop = 0;
+			cout << "You now have " << score << " coins." << endl;
+		}
+	}
+	cout << "----------------------------------------------" << endl;
+	cout << "THE END OF ROUND 3" << endl;
+	cout << "You now have " << score << " coins." << endl;
+}
+
 
 void gameplay(int &score, int overall[5][5][2]) {
 	cout << "Play with 5 players and you will detemine your destiny." << endl;
