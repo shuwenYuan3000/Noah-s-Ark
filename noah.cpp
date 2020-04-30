@@ -168,14 +168,12 @@ void godfather(int& score, int record[5][2]) {
 	cout << "You now have " << score << " coins." << endl;
 }
 
-
-void gameplay(int &score, int overall[5][5][2]) {
+void gameplay(int &score, int record[5][2], int person[5]){
 	cout << "Play with 5 players and you will detemine your destiny." << endl;
-	cout << "----------------------------------------------" << endl;
+	girl(score,record);
+	black(score, record);
+	godfather(score, record);
 	/*
-	girl();
-	black();
-	godfather();
 	repulicate();
 	randomplay();
 	*/
@@ -187,7 +185,8 @@ int main() {
 	cin >> name;
 	//读取文件的那部分还没写哦
 	int score = 0;
-	int overall[5][5][2];
+	int person[5] = {0,1,2,3};
+	int record[5][2];
 	print_background();
 	string start_game;
 	bool play = false;
