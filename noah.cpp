@@ -64,6 +64,46 @@ void trial() {
 	cout << "----------------------------------------------" << endl;
 }
 
+void judge(int &score, int you, int npc) {
+	if (you == 1 && npc == 1)
+		score += 2;
+	else if (you == 0 && npc == 1)
+		score += 4;
+	else if (you == 1 && npc == 0)
+		score -= 1;
+}
+
+void girl(int& score, int record[5][2]) {
+	cout << "----------------------------------------------" << endl;
+	cout << "There is a little girl in her pink hat." << endl;
+	cout << "With her innocent eyes filled with fear." << endl;
+	cout << "Little Lamb God bless thee. " << endl;
+	for (int i = 0; i < 5;++i) {
+		cout << "++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+		cout << "You now have " << score << " coins." << endl;
+		cout << "Type \"Yes\" if you would like to cooperate, else type \"No\"." << endl;
+		cout << "You: ";
+		string choice;
+		cin >> choice;
+		cout << "Your rival: Yes" << endl;
+		if (choice == "Yes" || choice == "yes") {
+			judge(score, 1, 1);
+			record[0][0] = 1;
+			record[0][1] = 1;
+		}
+		else if (choice == "No" || choice == "no") {
+			judge(score, 0, 1);
+			record[0][0] = 0;
+			record[0][1] = 1;
+			cout << "You now have " << score << " coins." << endl;
+		}
+	}
+	cout << "----------------------------------------------" << endl;
+	cout << "THE END OF ROUND 1" << endl;
+	cout << "You now have " << score << " coins." << endl;
+}
+
+
 void gameplay(int &score, int overall[5][5][2]) {
 	cout << "Play with 5 players and you will detemine your destiny." << endl;
 	cout << "----------------------------------------------" << endl;
