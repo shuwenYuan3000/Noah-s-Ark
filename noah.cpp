@@ -355,8 +355,10 @@ void gameplay(int &score, int record[7][5][2]){
 	cout << "Play with 5 players and you will detemine your destiny." << endl;
 	srand(time(NULL));
 	int opponent;
+	
+	// Now let's randomly call five opponents!
 	for (int j=0; j<5; j++) {
-		opponent = rand() % 6 + 1;                 // randomly call five opponents
+		opponent = rand() % 6 + 1;                 
 		call_opponent(opponent, score, record);
 	}
 }
