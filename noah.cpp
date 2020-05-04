@@ -375,7 +375,7 @@ int main() {
 	bool play = false;
 	trial();
 	while (!play) {
-		cout << "Type \"Yes\" if you would like to proceed:";//可能造成一点点误解，要不加个print“no”就quit这样？
+		cout << "Type \"Yes\" if you would like to proceed (you can try to type \"No\" if you want to quit):";
 		cin >> start_game;
 		if (start_game == "Yes" || start_game == "yes") {
 			play = true;
