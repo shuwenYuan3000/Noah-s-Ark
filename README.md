@@ -58,9 +58,13 @@ Can you get enough coins and survive the trip?
 - Data structure to store the choices player has made if the opponent's choice is based on that 
 - Generation of random events as one opponent make choices randomly
 - Program codes in multiple files
-- As player can stop in the middle of the game, dynamic memory management is used as the # of rounds played is case-defined.
+- File Input/Output for loading and saving game status
+- Use dynamic memory management for variable used and changed at runtime 
 
 ## Programme Features/Functions implemented
--
-
-
+- Data structure to store the number of coins the player has obtained 
+- Data structure to store the choices player has made if the opponent's choice is based on that 
+- Generation of random opponents for different games; Generation of random choices as one opponent make choices randomly
+- Program codes in multiple files
+- File Input/Output for loading and saving game status
+- Use dynamic variable to store highest score of rounds as well as one complete game 
