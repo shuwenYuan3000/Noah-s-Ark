@@ -216,7 +216,7 @@ void copycat(int &score, int record[7][5][2]) {
 	cout << "You now have " << score << " coins." << endl;
 }
 
-void random(int &score, int record[7][5][2], int &highscore) {
+void random(int &score, int record[7][5][2], int * highscore) {
 	cout << "----------------------------------------------" << endl;
 	cout << "There sits a guy in a red hat." << endl;
 	cout << "Whose facial expression is dull." << endl;
@@ -233,11 +233,11 @@ void random(int &score, int record[7][5][2], int &highscore) {
 		record[4][i][1] = rand() % 2;
 		if (record[4][i][1] == 1) {
 			cout << "Your rival: Yes" << endl;
-			highscore += 4;
+			*highscore += 4;
 		}
 		if (record[4][i][1] == 0) {
 			cout << "Your rival: No" << endl;
-			highscore += 0;
+			*highscore += 0;
 		}
 		
 		if (choice == "Yes" || choice == "yes") {
@@ -324,33 +324,33 @@ void simpleton(int &score, int record[7][5][2]) {
 	cout << "You now have " << score << " coins." << endl;
 }
 
-void call_opponent(int opponent, int &score, int record[7][5][2], int &highscore) {
+void call_opponent(int opponent, int &score, int record[7][5][2], int * highscore) {
 	if (opponent==1) {
 		girl(score, record);
-		highscore += 20;
+		*highscore += 20;
 	}
 	else if (opponent==2) {
 		black(score, record);
-		highscore += 0;
+		*highscore += 0;
 	}
 	else if (opponent==3) {
 		godfather(score, record);
-		highscore += 12;
+		*highscore += 12;
 	}
 	else if (opponent==4) {
 		copycat(score, record);
-		highscore += 12;
+		*highscore += 12;
 	}
 	else if (opponent==5) {
 		random(score, record, highscore);
 	}
 	else if (opponent==6) {
 		simpleton(score, record);
-		highscore += 10;
+		*highscore += 10;
 	}
 }
 
-int gameplay(int& score, int record[7][5][2], int &roundleft, int &highscore) {
+int gameplay(int& score, int record[7][5][2], int &roundleft, int *highscore) {
 	cout << "Play with 5 players and you will detemine your destiny." << endl;
 	srand(time(NULL));
 	int opponent;
@@ -372,12 +372,12 @@ int gameplay(int& score, int record[7][5][2], int &roundleft, int &highscore) {
 	return roundleft;
 }
 
-void answer(int score, int &highscore) {
+void answer(int score, int * highscore) {
 	cout << "----------------------------------------------" << endl;
 	cout << "The end of the game, YOUNG MAN!" << endl;
-	cout << "The highest score that can be achieved by the most smart is: " << highscore << endl;
+	cout << "The highest score that can be achieved by the most smart is: " << *highscore << endl;
 	cout << "You now have " << score << " coins." << endl;
-	if (score >= highscore) {
+	if (score >= *highscore) {
 		cout << "BRAVO! God cannot help but admire your wisdom." << endl;
 		cout << "You are one of the smartest people ON EARTH!" << endl;
 	}
@@ -401,7 +401,7 @@ int main() {
 	int record[7][5][2];
 	int score = 0;
 	int roundleft = 0;
-	int highscore = 0;
+	int *highscore = new int (0);
 
 	ifstream fin(fname.c_str());
 	if (fin.fail()) {
@@ -426,7 +426,7 @@ int main() {
 	}
 	else {
 		cout << "----------------------------------------------"<<endl;
-		fin >> roundleft >> score >> highscore;
+		fin >> roundleft >> score >> *highscore;
 		fin.close();
 		cout << "Wanna to continue your game of last time?" << endl;
 		cout << "Type \"Yes\" if you would like to continue else type \"No\" :";
@@ -436,7 +436,7 @@ int main() {
 			roundleft=gameplay(score, record, roundleft, highscore);
 		else {
 			score = 0;
-			highscore = 0;
+			*highscore = 0;
 			roundleft = 5;
 			roundleft=gameplay(score, record, roundleft, highscore);
 		}
@@ -452,7 +452,7 @@ int main() {
 		}
 		
 		fout << roundleft << " " << score << " "
-			<< highscore << endl;
+			<< *highscore << endl;
 		fout.close();
 		cout << "Your game record has been stored.";
 		cout << " You can type your name next time to continue your game." << endl;
@@ -470,7 +470,7 @@ int main() {
 
 	while (playagain == "Yes" || playagain == "yes") {
 		score = 0;
-	    highscore = 0;
+	    *highscore = 0;
 		roundleft = 5;
 		roundleft = gameplay(score, record, roundleft, highscore);
 
@@ -484,7 +484,7 @@ int main() {
 			}
 			
 			fout << roundleft << " " << score << " "
-				<< highscore << endl;
+				<< *highscore << endl;
 			fout.close();
 			cout << "Your game record has been stored.";
 			cout << " You can type your name next time to continue your game." << endl;
@@ -502,6 +502,7 @@ int main() {
 	
 	cout << "Thank you for playing our game." << endl;
 	cout << "THE END" << endl;
+	delete highscore;
 
 	return 0;
 }
