@@ -41,7 +41,7 @@ void trial() {
 	cout << "You: ";
 	cin >> choice;
 	cout << "Your rival: Yes" << endl;
-	if (choice == "Yes") {
+	if (choice == "Yes" || choice == "yes") {
 		tscore += 2;
 		rscore += 2;
 	}
@@ -54,7 +54,7 @@ void trial() {
 	cout << "You: ";
 	cin >> choice;
 	cout << "Your rival: No" << endl;
-	if (choice == "Yes") {
+	if (choice == "Yes" || choice == "yes") {
 		rscore += 4;
 	}
 	else {
@@ -332,36 +332,43 @@ void simpleton(int &score, int record[7][5][2]) {
 	cout << "You now have " << score << " coins." << endl;
 }
 
-void call_opponent(int opponent, int &score, int record[7][5][2]) {
+void call_opponent(int opponent, int &score, int record[7][5][2], int &highscore) {
 	if (opponent==1) {
 		girl(score, record);
+		highscore += 20;
 	}
 	else if (opponent==2) {
 		black(score, record);
+		highscore += 0;
 	}
 	else if (opponent==3) {
 		godfather(score, record);
+		highscore += 12;
 	}
 	else if (opponent==4) {
 		copycat(score, record);
+		highscore += 12;
 	}
 	else if (opponent==5) {
 		random(score, record);
+		highscore += 15;
 	}
 	else if (opponent==6) {
 		simpleton(score, record);
+		highscore += 10;
 	}
 }
 
-int gameplay(int& score, int record[7][5][2],int &roundleft) {
+int gameplay(int& score, int record[7][5][2], int &roundleft, int &highscore) {
 	cout << "Play with 5 players and you will detemine your destiny." << endl;
 	srand(time(NULL));
 	int opponent;
 	int n = roundleft;
-	// Now let's randomly call five opponents!
+	
+	// Now let's randomly call opponents!
 	for (int j = 0; j < n; j++) {
 		opponent = rand() % 6 + 1;
-		call_opponent(opponent, score, record);
+		call_opponent(opponent, score, record, highscore);
 		roundleft -= 1;
 		if (roundleft > 0) {
 			cout << "Wanna quit? Type \"Yes\" else type \"No\" :";
@@ -403,10 +410,10 @@ int main() {
 	int record[7][5][2];
 	int score = 0;
 	int roundleft = 0;
-	double highscore=40;
+	int highscore=0;
 
-	ifstream fin(fname);
-	if (fin.fail() ){
+	ifstream fin(fname.c_str());
+	if (fin.fail()) {
 		roundleft = 5;
 		string start_game;
 		bool play = false;
@@ -416,7 +423,7 @@ int main() {
 			cin >> start_game;
 			if (start_game == "Yes" || start_game == "yes") {
 				play = true;
-				roundleft=gameplay(score, record,roundleft);
+				roundleft=gameplay(score, record, roundleft, highscore);
 			}
 			if (start_game == "No" || start_game == "no") {
 				cout << "If you don't play the game, you will be taken for human trials right away.  Think again!" << endl;
@@ -429,28 +436,30 @@ int main() {
 	else {
 		cout << "----------------------------------------------"<<endl;
 		fin >> roundleft >> score >> highscore;
+		fin.close();
 		cout << "Wanna to continue your game of last time?" << endl;
 		cout << "Type \"Yes\" if you would like to continue else type \"No\" :";
 		string c;
 		cin >> c;
 		if (c=="Yes" ||c=="yes")
-			roundleft=gameplay(score, record, roundleft);
+			roundleft=gameplay(score, record, roundleft, highscore);
 		else {
 			score = 0;
 			highscore = 0;
 			roundleft = 5;
-			roundleft=gameplay(score, record, roundleft);
+			roundleft=gameplay(score, record, roundleft, highscore);
 		}
 	}
 
 	if (roundleft > 0) {
 		ofstream fout;
-		fout.open(fname);
+		fout.open(fname.c_str());
 
 		if (fout.fail()) {
 			cout << "Error in file opening!" << endl;
 			exit(1);
 		}
+		
 		fout << roundleft << " " << score << " "
 			<< highscore << endl;
 		fout.close();
@@ -472,16 +481,17 @@ int main() {
 		score = 0;
 		highscore = 0;
 		roundleft = 5;
-		roundleft = gameplay(score, record, roundleft);
+		roundleft = gameplay(score, record, roundleft, highscore);
 
 		if (roundleft > 0) {
 			ofstream fout;
-			fout.open(fname);
+			fout.open(fname.c_str());
 
 			if (fout.fail()) {
 				cout << "Error in file opening!" << endl;
 				exit(1);
 			}
+			
 			fout << roundleft << " " << score << " "
 				<< highscore << endl;
 			fout.close();
