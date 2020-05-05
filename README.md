@@ -58,5 +58,9 @@ Can you get enough coins and survive the trip?
 - Data structure to store the choices player has made if the opponent's choice is based on that 
 - Generation of random events as one opponent make choices randomly
 - Program codes in multiple files
+- As player can stop in the middle of the game, dynamic memory management is used as the # of rounds played is case-defined.
+
+## Programme Features/Functions implemented
+-
 
 
