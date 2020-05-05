@@ -216,7 +216,7 @@ void copycat(int &score, int record[7][5][2]) {
 	cout << "You now have " << score << " coins." << endl;
 }
 
-void random(int &score, int record[7][5][2]) {
+void random(int &score, int record[7][5][2], int &highscore) {
 	cout << "----------------------------------------------" << endl;
 	cout << "There sits a guy in a red hat." << endl;
 	cout << "Whose facial expression is dull." << endl;
@@ -233,9 +233,11 @@ void random(int &score, int record[7][5][2]) {
 		record[4][i][1] = rand() % 2;
 		if (record[4][i][1] == 1) {
 			cout << "Your rival: Yes" << endl;
+			highscore += 4;
 		}
 		if (record[4][i][1] == 0) {
 			cout << "Your rival: No" << endl;
+			highscore += 0;
 		}
 		
 		if (choice == "Yes" || choice == "yes") {
@@ -340,8 +342,7 @@ void call_opponent(int opponent, int &score, int record[7][5][2], int &highscore
 		highscore += 12;
 	}
 	else if (opponent==5) {
-		random(score, record);
-		highscore += 15;
+		random(score, record, highscore);
 	}
 	else if (opponent==6) {
 		simpleton(score, record);
@@ -371,7 +372,7 @@ int gameplay(int& score, int record[7][5][2], int &roundleft, int &highscore) {
 	return roundleft;
 }
 
-void answer(int score, int highscore) {
+void answer(int score, int &highscore) {
 	cout << "----------------------------------------------" << endl;
 	cout << "The end of the game, YOUNG MAN!" << endl;
 	cout << "The highest score that can be achieved by the most smart is: " << highscore << endl;
@@ -400,7 +401,7 @@ int main() {
 	int record[7][5][2];
 	int score = 0;
 	int roundleft = 0;
-	int highscore=0;
+	int highscore = 0;
 
 	ifstream fin(fname.c_str());
 	if (fin.fail()) {
@@ -469,7 +470,7 @@ int main() {
 
 	while (playagain == "Yes" || playagain == "yes") {
 		score = 0;
-		highscore = 0;
+	    highscore = 0;
 		roundleft = 5;
 		roundleft = gameplay(score, record, roundleft, highscore);
 
