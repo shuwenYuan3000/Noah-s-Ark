@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <fstream>
+#include "judge.h"
 using namespace std;
 
 void print_background() {
@@ -65,17 +66,6 @@ void trial() {
 	cout << "Your rival now have " << rscore << " coins." << endl;
 	cout << "Now ended the trial. Good luck and wish you an enjoyable voyage! HAHAHAHAHAHA..." << endl;
 	cout << "----------------------------------------------" << endl;
-}
-
-void judge(int &score, int you, int npc) {
-	if (you == 1 && npc == 1)
-		score += 2;
-	else if (you == 0 && npc == 1)
-		score += 4;
-	else if (you == 1 && npc == 0)
-		score += 0;
-	else if (you == 0 && npc == 0)
-	    score -= 1;
 }
 
 void girl(int& score, int record[7][5][2]) {
