@@ -2,6 +2,7 @@
 #include <string>
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
 using namespace std;
 
 void print_background() {
@@ -351,45 +352,155 @@ void call_opponent(int opponent, int &score, int record[7][5][2]) {
 		simpleton(score, record);
 	}
 }
-void gameplay(int &score, int record[7][5][2]){
+
+int gameplay(int& score, int record[7][5][2],int &roundleft) {
 	cout << "Play with 5 players and you will detemine your destiny." << endl;
 	srand(time(NULL));
 	int opponent;
-	
+	int n = roundleft;
 	// Now let's randomly call five opponents!
-	for (int j=0; j<5; j++) {
-		opponent = rand() % 6 + 1;                 
+	for (int j = 0; j < n; j++) {
+		opponent = rand() % 6 + 1;
 		call_opponent(opponent, score, record);
+		roundleft -= 1;
+		if (roundleft > 0) {
+			cout << "Wanna quit? Type \"Yes\" else type \"No\" :";
+			string c;
+			cin >> c;
+			if (c == "Yes" || c == "yes")
+				break;
+		}
 	}
+	return roundleft;
+}
+
+void answer(int score, int highscore) {
+	cout << "----------------------------------------------" << endl;
+	cout << "The end of the game, YOUNG MAN!" << endl;
+	cout << "The highest score that can be achieved by the most smart is: " << highscore << endl;
+	cout << "You now have " << score << " coins." << endl;
+	if (score >= highscore) {
+		cout << "BRAVO! God cannot help but admire your wisdom." << endl;
+		cout << "You are one of the smartest people ON EARTH!" << endl;
+	}
+	else if (score < 40) {
+		cout << "You are never gonna leave this ark of crime. HAHAHAHAHAH..." << endl;
+	}
+	else {
+		cout << "You are so lucky to get rid of that ark. Wish you life out there also lucky!" << endl;
+	}
+	cout << "----------------------------------------------" << endl;
 }
 
 int main() {
 	string name;
 	cout << "The young, What's your name: ";
 	cin >> name;
-	//读取文件的那部分还没写哦
-	int score = 0;
-	int record[7][5][2];
+	string fname = name + ".txt";
+	cout << fname << endl;
+
 	print_background();
-	string start_game;
-	bool play = false;
-	trial();
-	while (!play) {
-		cout << "Type \"Yes\" if you would like to proceed (you can try to type \"No\" if you want to quit):";
-		cin >> start_game;
-		if (start_game == "Yes" || start_game == "yes") {
-			play = true;
-			gameplay(score, record);
-		}
-		if (start_game == "No" || start_game == "no") {
-			cout << "If you don't play the game, you will be taken for human trials right away.  Think again!" << endl;
-		}
-		if (start_game != "Yes" && start_game != "No" && start_game != "yes" && start_game != "no") {
-			cout << "Invalid Choice!" << endl;
+	int record[7][5][2];
+	int score = 0;
+	int roundleft = 0;
+	double highscore=40;
+
+	ifstream fin(fname);
+	if (fin.fail() ){
+		roundleft = 5;
+		string start_game;
+		bool play = false;
+		trial();
+		while (!play) {
+			cout << "Type \"Yes\" if you would like to proceed (you can try to type \"No\" if you want to quit):";
+			cin >> start_game;
+			if (start_game == "Yes" || start_game == "yes") {
+				play = true;
+				roundleft=gameplay(score, record,roundleft);
+			}
+			if (start_game == "No" || start_game == "no") {
+				cout << "If you don't play the game, you will be taken for human trials right away.  Think again!" << endl;
+			}
+			if (start_game != "Yes" && start_game != "No" && start_game != "yes" && start_game != "no") {
+				cout << "Invalid Choice!" << endl;
+			}
 		}
 	}
-	//evaluate();
-	//file的那部分还没写哦
+	else {
+		cout << "----------------------------------------------"<<endl;
+		fin >> roundleft >> score >> highscore;
+		cout << "Wanna to continue your game of last time?" << endl;
+		cout << "Type \"Yes\" if you would like to continue else type \"No\" :";
+		string c;
+		cin >> c;
+		if (c=="Yes" ||c=="yes")
+			roundleft=gameplay(score, record, roundleft);
+		else {
+			score = 0;
+			highscore = 0;
+			roundleft = 5;
+			roundleft=gameplay(score, record, roundleft);
+		}
+	}
+
+	if (roundleft > 0) {
+		ofstream fout;
+		fout.open(fname);
+
+		if (fout.fail()) {
+			cout << "Error in file opening!" << endl;
+			exit(1);
+		}
+		fout << roundleft << " " << score << " "
+			<< highscore << endl;
+		fout.close();
+		cout << "Your game record has been stored.";
+		cout << " You can type your name next time to continue your game." << endl;
+		cout << "Thank you for playing our game!" << endl;
+	}
+	
+	else {
+		answer(score, highscore);
+	}
+
+	string playagain;
+	cout << "Wanna play again to get the highest score human can get and be the smartest person?" << endl;
+	cout << "Type \"Yes\" if you would like to continure else type \"No\" :";
+	cin >> playagain;
+
+	while (playagain == "Yes" || playagain == "yes") {
+		score = 0;
+		highscore = 0;
+		roundleft = 5;
+		roundleft = gameplay(score, record, roundleft);
+
+		if (roundleft > 0) {
+			ofstream fout;
+			fout.open(fname);
+
+			if (fout.fail()) {
+				cout << "Error in file opening!" << endl;
+				exit(1);
+			}
+			fout << roundleft << " " << score << " "
+				<< highscore << endl;
+			fout.close();
+			cout << "Your game record has been stored.";
+			cout << " You can type your name next time to continue your game." << endl;
+			cout << "Thank you for playing our game!" << endl;
+			exit(0);
+		}
+
+		else {
+			answer(score, highscore);
+		}
+		cout << "Wanna play again to get the highest score human can get and be the smartest person?" << endl;
+		cout << "Type \"Yes\" if you would like to continue else type \"No\" :";
+		cin >> playagain;
+	}
+	
+	cout << "Thank you for playing our game." << endl;
+	cout << "THE END" << endl;
 
 	return 0;
 }
