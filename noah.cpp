@@ -6,6 +6,7 @@
 #include "judge.h"
 using namespace std;
 
+// This function prints the game background and the rules. 
 void print_background() {
 	cout << left;
 	cout << "Welcome to the ship of crime, the Noah's Ark." << endl;
@@ -31,6 +32,7 @@ void print_background() {
 	cout << "But for the rest of the coins other than 40, each one coin can change into a million dollars in the real world." << endl;
 }
 
+// This function provides the player with a trial of the game, which helps player get familiar with how to play.
 void trial() {
 	int tscore=0, rscore=0;
 	string choice;
