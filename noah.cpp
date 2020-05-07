@@ -403,7 +403,7 @@ int main() {
 	int record[7][5][2];
 	int score = 0;
 	int roundleft = 0;
-	int *highscore = new int (0);
+	int* highscore = new int(0);
 
 	ifstream fin(fname.c_str());
 	if (fin.fail()) {
@@ -416,7 +416,7 @@ int main() {
 			cin >> start_game;
 			if (start_game == "Yes" || start_game == "yes") {
 				play = true;
-				roundleft=gameplay(score, record, roundleft, highscore);
+				roundleft = gameplay(score, record, roundleft, highscore);
 			}
 			if (start_game == "No" || start_game == "no") {
 				cout << "If you don't play the game, you will be taken for human trials right away.  Think again!" << endl;
@@ -427,20 +427,29 @@ int main() {
 		}
 	}
 	else {
-		cout << "----------------------------------------------"<<endl;
 		fin >> roundleft >> score >> *highscore;
-		fin.close();
-		cout << "Wanna to continue your game of last time?" << endl;
-		cout << "Type \"Yes\" if you would like to continue else type \"No\" :";
-		string c;
-		cin >> c;
-		if (c=="Yes" ||c=="yes")
-			roundleft=gameplay(score, record, roundleft, highscore);
-		else {
+		if (roundleft == 0) {
 			score = 0;
 			*highscore = 0;
 			roundleft = 5;
-			roundleft=gameplay(score, record, roundleft, highscore);
+			roundleft = gameplay(score, record, roundleft, highscore);
+		}
+		else {
+			cout << "----------------------------------------------" << endl;
+
+			fin.close();
+			cout << "Wanna to continue your game of last time?" << endl;
+			cout << "Type \"Yes\" if you would like to continue else type \"No\" :";
+			string c;
+			cin >> c;
+			if (c == "Yes" || c == "yes")
+				roundleft = gameplay(score, record, roundleft, highscore);
+			else {
+				score = 0;
+				*highscore = 0;
+				roundleft = 5;
+				roundleft = gameplay(score, record, roundleft, highscore);
+			}
 		}
 	}
 
@@ -452,7 +461,7 @@ int main() {
 			cout << "Error in file opening!" << endl;
 			exit(1);
 		}
-		
+
 		fout << roundleft << " " << score << " "
 			<< *highscore << endl;
 		fout.close();
@@ -460,8 +469,19 @@ int main() {
 		cout << " You can type your name next time to continue your game." << endl;
 		cout << "Thank you for playing our game!" << endl;
 	}
-	
+
 	else {
+		ofstream fout;
+		fout.open(fname.c_str());
+
+		if (fout.fail()) {
+			cout << "Error in file opening!" << endl;
+			exit(1);
+		}
+
+		fout << roundleft << " " << score << " "
+			<< *highscore << endl;
+		fout.close();
 		answer(score, highscore);
 	}
 
@@ -472,7 +492,7 @@ int main() {
 
 	while (playagain == "Yes" || playagain == "yes") {
 		score = 0;
-	    *highscore = 0;
+		*highscore = 0;
 		roundleft = 5;
 		roundleft = gameplay(score, record, roundleft, highscore);
 
@@ -484,7 +504,7 @@ int main() {
 				cout << "Error in file opening!" << endl;
 				exit(1);
 			}
-			
+
 			fout << roundleft << " " << score << " "
 				<< *highscore << endl;
 			fout.close();
@@ -501,7 +521,7 @@ int main() {
 		cout << "Type \"Yes\" if you would like to continue else type \"No\" :";
 		cin >> playagain;
 	}
-	
+
 	cout << "Thank you for playing our game." << endl;
 	cout << "THE END" << endl;
 	delete highscore;
