@@ -68,3 +68,9 @@ Can you get enough coins and survive the trip?
 - Program codes in multiple files
 - File Input/Output for loading and saving game status
 - Use dynamic variable to store highest score of rounds as well as one complete game 
+
+## Compilation and Execution
+- Command: $ make noah
+- Command: $ ./noah
+- Input the player's name
+- Input "Yes"/"yes" or "No"/"no" to make choices according to the instructions
