@@ -32,7 +32,8 @@ void print_background() {
 	cout << "But for the rest of the coins other than 40, each one coin can change into a million dollars in the real world." << endl;
 }
 
-// This function provides the player with a trial of the game, which helps player get familiar with how to play.
+// This function provides the player with a trial of the game, in which the opponent's first choice is "Yes" and the second one is "No".
+// It helps player get familiar with how to play.
 void trial() {
 	int tscore=0, rscore=0;
 	string choice;
@@ -70,6 +71,8 @@ void trial() {
 	cout << "----------------------------------------------" << endl;
 }
 
+// This function calls opponent "girl", who always choose "Yes".
+// The parameters are the variable "score" and the array "record". It changes the value of "score" and elements in record according to player's inputs of each round.  
 void girl(int& score, int record[7][5][2]) {
 	cout << "----------------------------------------------" << endl;
 	cout << "There is a little girl in her pink hat." << endl;
@@ -100,6 +103,8 @@ void girl(int& score, int record[7][5][2]) {
 	cout << "You now have " << score << " coins." << endl;
 }
 
+// This function calls opponent "black", who always choose "No".
+// The parameters are the variable "score" and the array "record". It changes the value of "score" and elements in record according to player's inputs of each round. 
 void black(int& score, int record[7][5][2]) {
 	cout << "----------------------------------------------" << endl;
 	cout << "There is a middle-aged man in tidy suit." << endl;
@@ -130,6 +135,8 @@ void black(int& score, int record[7][5][2]) {
 	cout << "You now have " << score << " coins." << endl;
 }
 
+// This function calls opponent "godfather", who starts with "Yes", but changes to "No" once player chooses "No". 
+// The parameters are the variable "score" and the array "record". It changes the value of "score" and elements in record according to player's inputs of each round. 
 void godfather(int& score, int record[7][5][2]) {
 	cout << "----------------------------------------------" << endl;
 	cout << "There sits a godfather." << endl;
@@ -165,6 +172,8 @@ void godfather(int& score, int record[7][5][2]) {
 	cout << "You now have " << score << " coins." << endl;
 }
 
+// This function calls opponent "copycat", whose first choice is "Yes", but other choices are the same as player's last one. 
+// The parameters are the variable "score" and the array "record". It changes the value of "score" and elements in record according to player's inputs of each round. 
 void copycat(int &score, int record[7][5][2]) {
 	cout << "----------------------------------------------" << endl;
 	cout << "There is a young man in a blue hat." << endl;
@@ -218,7 +227,9 @@ void copycat(int &score, int record[7][5][2]) {
 	cout << "You now have " << score << " coins." << endl;
 }
 
-void random(int &score, int record[7][5][2], int * highscore) {
+// This function calls opponent "random", who choices are randomly generated. 
+// The parameters are the variable "score" and the array "record". It changes the value of "score" and elements in record according to player's inputs of each round. 
+void random(int &score, int record[7][5][2]) {
 	cout << "----------------------------------------------" << endl;
 	cout << "There sits a guy in a red hat." << endl;
 	cout << "Whose facial expression is dull." << endl;
@@ -255,6 +266,8 @@ void random(int &score, int record[7][5][2], int * highscore) {
 	cout << "You now have " << score << " coins." << endl;
 }
 
+// This function calls opponent "simpleton", who starts with "Yes", but changes to the opposite of last choice if the player chose "No" in the last round. 
+// The parameters are the variable "score" and the array "record". It changes the value of "score" and elements in record according to player's inputs of each round. 
 void simpleton(int &score, int record[7][5][2]) {
 	cout << "----------------------------------------------" << endl;
 	cout << "Here comes a teenager." << endl;
@@ -324,6 +337,8 @@ void simpleton(int &score, int record[7][5][2]) {
 	cout << "You now have " << score << " coins." << endl;
 }
 
+// This function calls certain opponent according to the random number generated.
+// It changes the value of the dynamic variable "highscore" to store the highest score achievable. 
 void call_opponent(int opponent, int &score, int record[7][5][2], int * highscore) {
 	if (opponent==1) {
 		girl(score, record);
@@ -342,7 +357,7 @@ void call_opponent(int opponent, int &score, int record[7][5][2], int * highscor
 		*highscore += 12;
 	}
 	else if (opponent==5) {
-		random(score, record, highscore);
+		random(score, record);
 		*highscore += 100;
 	}
 	else if (opponent==6) {
@@ -351,6 +366,8 @@ void call_opponent(int opponent, int &score, int record[7][5][2], int * highscor
 	}
 }
 
+// This function calls opponents randomly for n times given by the variable "roundleft".
+// It returns "roundleft" in the end. If roundleft > 0, we store the game status in a file as the player quit in the middle of the game. If roundleft = 0, we move to game end procedures.  
 int gameplay(int& score, int record[7][5][2], int &roundleft, int *highscore) {
 	cout << "Play with 5 players and you will detemine your destiny." << endl;
 	srand(time(NULL));
@@ -373,6 +390,8 @@ int gameplay(int& score, int record[7][5][2], int &roundleft, int *highscore) {
 	return roundleft;
 }
 
+// This function evaluates the player's performance.
+// It compares the player's score with the highest score achievable to give different comments. 
 void answer(int score, int* highscore) {
 	cout << "----------------------------------------------" << endl;
 	cout << "The end of the game, YOUNG MAN!" << endl;
