@@ -235,11 +235,9 @@ void random(int &score, int record[7][5][2], int * highscore) {
 		record[4][i][1] = rand() % 2;
 		if (record[4][i][1] == 1) {
 			cout << "Your rival: Yes" << endl;
-			*highscore += 4;
 		}
 		if (record[4][i][1] == 0) {
 			cout << "Your rival: No" << endl;
-			*highscore += 0;
 		}
 		
 		if (choice == "Yes" || choice == "yes") {
@@ -345,6 +343,7 @@ void call_opponent(int opponent, int &score, int record[7][5][2], int * highscor
 	}
 	else if (opponent==5) {
 		random(score, record, highscore);
+		*highscore += 100;
 	}
 	else if (opponent==6) {
 		simpleton(score, record);
@@ -374,10 +373,18 @@ int gameplay(int& score, int record[7][5][2], int &roundleft, int *highscore) {
 	return roundleft;
 }
 
-void answer(int score, int * highscore) {
+void answer(int score, int* highscore) {
 	cout << "----------------------------------------------" << endl;
 	cout << "The end of the game, YOUNG MAN!" << endl;
-	cout << "The highest score that can be achieved by the most smart is: " << *highscore << endl;
+	if (*highscore < 100) {
+		cout << "The highest score that can be achieved by the most smart is: " << *highscore << endl;
+	}
+	else {
+		while (*highscore > 100) {
+			*highscore -= 100;
+		}
+		cout << "The highest score that can be achieved by the most smart is: " << *highscore <<"+"<< endl;
+	}
 	cout << "You now have " << score << " coins." << endl;
 	if (score >= *highscore) {
 		cout << "BRAVO! God cannot help but admire your wisdom." << endl;
@@ -397,7 +404,6 @@ int main() {
 	cout << "The young, What's your name: ";
 	cin >> name;
 	string fname = name + ".txt";
-	cout << fname << endl;
 
 	print_background();
 	int record[7][5][2];
@@ -465,9 +471,10 @@ int main() {
 		fout << roundleft << " " << score << " "
 			<< *highscore << endl;
 		fout.close();
-		cout << "Your game record has been stored.";
+		cout << "Your game record has been stored."<<endl;
 		cout << " You can type your name next time to continue your game." << endl;
 		cout << "Thank you for playing our game!" << endl;
+		exit(0);
 	}
 
 	else {
@@ -508,7 +515,7 @@ int main() {
 			fout << roundleft << " " << score << " "
 				<< *highscore << endl;
 			fout.close();
-			cout << "Your game record has been stored.";
+			cout << "Your game record has been stored."<<endl;
 			cout << " You can type your name next time to continue your game." << endl;
 			cout << "Thank you for playing our game!" << endl;
 			exit(0);
