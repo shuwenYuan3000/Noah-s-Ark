@@ -5,6 +5,7 @@
 #include <fstream>
 #include "judge.h"
 using namespace std;
+//we use the judge, the head file to jugde who will win the coins in each round
 
 // This function prints the game background and the rules. 
 void print_background() {
@@ -366,6 +367,9 @@ void call_opponent(int opponent, int &score, int record[7][5][2], int * highscor
 	}
 }
 
+/*in this function, we will start the game,
+and if the player wanna quit halfway,
+it will return the number of rounds left*/
 // This function calls opponents randomly for n times given by the variable "roundleft".
 // It returns "roundleft" in the end. If roundleft > 0, we store the game status in a file as the player quit in the middle of the game. If roundleft = 0, we move to game end procedures.  
 int gameplay(int& score, int record[7][5][2], int &roundleft, int *highscore) {
@@ -392,6 +396,10 @@ int gameplay(int& score, int record[7][5][2], int &roundleft, int *highscore) {
 
 // This function evaluates the player's performance.
 // It compares the player's score with the highest score achievable to give different comments. 
+/*we will give an evaluation of the players' performance:
+if score<40,fail;
+if score>40, pass;
+if score>highscore, the player is brilliant*/
 void answer(int score, int* highscore) {
 	cout << "----------------------------------------------" << endl;
 	cout << "The end of the game, YOUNG MAN!" << endl;
@@ -420,24 +428,35 @@ void answer(int score, int* highscore) {
 
 int main() {
 	string name;
+	//We use players' name to create file to store their game status
 	cout << "The young, What's your name: ";
 	cin >> name;
 	string fname = name + ".txt";
+	
 
 	print_background();
 	int record[7][5][2];
+	//use this 3-dimension array to store the record of the players' choices
 	int score = 0;
+	//use this item to calculate players' score
 	int roundleft = 0;
+	// use this item to record how many rounds are left
 	int* highscore = new int(0);
+	// use this dynamic management to record the highest score which is flexible and complicated
 
+	//by opening the file created by name to judge whether it is a new player
 	ifstream fin(fname.c_str());
 	if (fin.fail()) {
+		/*if failing to open the file, which means the game is new to the player,
+		we will provide the player with the trial part to let them get familiar with the rule*/
 		roundleft = 5;
 		string start_game;
 		bool play = false;
-		trial();
+		trial();//to call the trial part
 		while (!play) {
 			cout << "Type \"Yes\" if you would like to proceed (you can try to type \"No\" if you want to quit):";
+			//to let the player know the game truly starts from here.
+
 			cin >> start_game;
 			if (start_game == "Yes" || start_game == "yes") {
 				play = true;
@@ -451,6 +470,9 @@ int main() {
 			}
 		}
 	}
+	/*if there is a file about the player, 
+	we will skip the tiral part,
+	and ask the play whether they would like to continue or not*/
 	else {
 		fin >> roundleft >> score >> *highscore;
 		if (roundleft == 0) {
@@ -467,6 +489,8 @@ int main() {
 			cout << "Type \"Yes\" if you would like to continue else type \"No\" :";
 			string c;
 			cin >> c;
+			/*if they wanna continue, then contiue
+			if they don't wanna continue, then we will start a new game for them*/
 			if (c == "Yes" || c == "yes")
 				roundleft = gameplay(score, record, roundleft, highscore);
 			else {
@@ -477,7 +501,9 @@ int main() {
 			}
 		}
 	}
-
+	/*when a play quit halfway, 
+	we will store the record in a file named after the player's name
+	so that he/she can continue it after typing their name*/
 	if (roundleft > 0) {
 		ofstream fout;
 		fout.open(fname.c_str());
@@ -496,6 +522,7 @@ int main() {
 		exit(0);
 	}
 
+	/*when a whole 5 rounds are over, we will store the record in the file named after their name*/
 	else {
 		ofstream fout;
 		fout.open(fname.c_str());
@@ -511,6 +538,7 @@ int main() {
 		answer(score, highscore);
 	}
 
+	/*if the player want to play again, we will provide with infinte times to play it again*/
 	string playagain;
 	cout << "Wanna play again to get the highest score human can get and be the smartest person?" << endl;
 	cout << "Type \"Yes\" if you would like to continure else type \"No\" :";
@@ -534,9 +562,8 @@ int main() {
 			fout << roundleft << " " << score << " "
 				<< *highscore << endl;
 			fout.close();
-			cout << "Your game record has been stored."<<endl;
+			cout << "Your game record has been stored.";
 			cout << " You can type your name next time to continue your game." << endl;
-			cout << "Thank you for playing our game!" << endl;
 			exit(0);
 		}
 
@@ -546,11 +573,13 @@ int main() {
 		cout << "Wanna play again to get the highest score human can get and be the smartest person?" << endl;
 		cout << "Type \"Yes\" if you would like to continue else type \"No\" :";
 		cin >> playagain;
+		
 	}
 
+	//finally clear the dynamic memory and end the game.
+	delete highscore;
 	cout << "Thank you for playing our game." << endl;
 	cout << "THE END" << endl;
-	delete highscore;
 
 	return 0;
 }
